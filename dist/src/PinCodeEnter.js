@@ -3,7 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const delay_1 = require("./delay");
 const PinCode_1 = require("./PinCode");
 const utils_1 = require("./utils");
-const async_storage_1 = require("@react-native-community/async-storage");
+const async_storage_1 = require("@react-native-async-storage/async-storage");
+const _ = require("lodash");
 const React = require("react");
 const react_native_1 = require("react-native");
 const Keychain = require("react-native-keychain");
@@ -91,14 +92,8 @@ class PinCodeEnter extends React.PureComponent {
         });
     }
     async launchTouchID() {
-        const optionalConfigObject = {
-            cancelLabel: this.props.cancelLabel,
-            disableDeviceFallback: this.props.disableDeviceFallback,
-            fallbackLabel: this.props.fallbackLabel,
-            promptMessage: this.props.promptMessage
-        };
         try {
-            await LocalAuthentication.authenticateAsync(optionalConfigObject).then((success) => {
+            await LocalAuthentication.authenticateAsync(Object.assign(Object.assign(Object.assign(Object.assign({}, (_.isString(this.props.cancelLabel) && { cancelLabel: this.props.cancelLabel })), (_.isBoolean(this.props.disableDeviceFallback) && { disableDeviceFallback: this.props.disableDeviceFallback })), (_.isString(this.props.fallbackLabel) && { fallbackLabel: this.props.fallbackLabel })), (_.isString(this.props.promptMessage) && { promptMessage: this.props.promptMessage }))).then((success) => {
                 this.endProcess(this.props.storedPin || this.keyChainResult);
             });
         }

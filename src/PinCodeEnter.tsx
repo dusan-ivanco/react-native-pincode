@@ -2,7 +2,8 @@ import delay from './delay'
 import PinCode, { PinStatus } from './PinCode'
 import { PinResultStatus, noBiometricsConfig } from './utils'
 
-import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import * as _ from 'lodash'
 import * as React from 'react'
 import {
   StyleProp,
@@ -205,16 +206,13 @@ class PinCodeEnter extends React.PureComponent<IProps, IState> {
   }
 
   async launchTouchID() {
-    const optionalConfigObject = {
-      cancelLabel: this.props.cancelLabel,
-      disableDeviceFallback: this.props.disableDeviceFallback,
-      fallbackLabel: this.props.fallbackLabel,
-      promptMessage: this.props.promptMessage
-    }
     try {
-      await LocalAuthentication.authenticateAsync(
-        optionalConfigObject
-      ).then((success: any) => {
+      await LocalAuthentication.authenticateAsync({
+        ...(_.isString(this.props.cancelLabel) && {cancelLabel: this.props.cancelLabel}),
+        ...(_.isBoolean(this.props.disableDeviceFallback) && {disableDeviceFallback: this.props.disableDeviceFallback}),
+        ...(_.isString(this.props.fallbackLabel) && {fallbackLabel: this.props.fallbackLabel}),
+        ...(_.isString(this.props.promptMessage) && {promptMessage: this.props.promptMessage})
+      }).then((success: any) => {
         this.endProcess(this.props.storedPin || this.keyChainResult)
       })
     } catch (e) {

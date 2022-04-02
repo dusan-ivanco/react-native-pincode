@@ -4,7 +4,7 @@ import PinCodeChoose from "./src/PinCodeChoose";
 import PinCodeEnter from "./src/PinCodeEnter";
 import { hasPinCode, deletePinCode, resetInternalStates, PinResultStatus } from "./src/utils";
 
-import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as React from "react";
 import { View, StyleSheet, StyleProp, ViewStyle, TextStyle } from "react-native";
 
@@ -127,10 +127,6 @@ const timePinLockedAsyncStorageNameDefault = "timePinLockedRNPin";
 const pinAttemptsAsyncStorageNameDefault = "pinAttemptsRNPin";
 const pinCodeKeychainNameDefault = "reactNativePinCode";
 const touchIDDisabledDefault = false;
-const cancelLabelDefault = 'Cancel';
-const disableDeviceFallbackDefault = false;
-const fallbackLabelDefault = 'Use Passcode';
-const promptMessageDefault = 'Unlock your application';
 
 class PINCode extends React.PureComponent<IProps, IState> {
   static defaultProps: Partial<IProps> = {
@@ -329,10 +325,10 @@ class PINCode extends React.PureComponent<IProps, IState> {
             touchIDDisabled={this.props.touchIDDisabled || touchIDDisabledDefault}
             vibrationEnabled={this.props.vibrationEnabled}
             delayBetweenAttempts={this.props.delayBetweenAttempts}
-            cancelLabel={this.props.cancelLabel || cancelLabelDefault}
-            disableDeviceFallback={this.props.disableDeviceFallback || disableDeviceFallbackDefault}
-            fallbackLabel={this.props.fallbackLabel || fallbackLabelDefault}
-            promptMessage={this.props.promptMessage || promptMessageDefault}
+            cancelLabel={this.props.cancelLabel}
+            disableDeviceFallback={this.props.disableDeviceFallback}
+            fallbackLabel={this.props.fallbackLabel}
+            promptMessage={this.props.promptMessage}
           />}
         {(pinStatus === PinResultStatus.locked ||
           this.state.internalPinStatus === PinResultStatus.locked ||
