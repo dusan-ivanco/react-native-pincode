@@ -84,7 +84,6 @@ export declare type IProps = {
     subtitleEnter?: string;
     subtitleError?: string;
     textButtonLockedPage?: string;
-    textCancelButtonTouchID?: string;
     textDescriptionLockedPage?: string;
     textSubDescriptionLockedPage?: string;
     textPasswordVisibleFamily?: string;
@@ -102,12 +101,13 @@ export declare type IProps = {
     titleEnter?: string;
     titleValidationFailed?: string;
     touchIDDisabled?: boolean;
-    touchIDSentence?: string;
-    touchIDTitle?: string;
     validationRegex?: RegExp;
-    passcodeFallback?: boolean;
     vibrationEnabled?: boolean;
     delayBetweenAttempts?: number;
+    cancelLabel?: string;
+    disableDeviceFallback?: boolean;
+    fallbackLabel?: string;
+    promptMessage?: string;
 };
 export declare type IState = {
     internalPinStatus: PinResultStatus;
@@ -117,10 +117,10 @@ declare class PINCode extends React.PureComponent<IProps, IState> {
     static defaultProps: Partial<IProps>;
     constructor(props: IProps);
     changeInternalStatus: (status: PinResultStatus) => void;
-    renderLockedPage: () => any;
-    render(): any;
+    renderLockedPage: () => JSX.Element;
+    render(): JSX.Element;
 }
-export declare function hasUserSetPinCode(serviceName?: string): Promise<any>;
-export declare function deleteUserPinCode(serviceName?: string): Promise<any>;
-export declare function resetPinCodeInternalStates(pinAttempsStorageName?: string, timePinLockedStorageName?: string): Promise<any>;
+export declare function hasUserSetPinCode(serviceName?: string): Promise<boolean>;
+export declare function deleteUserPinCode(serviceName?: string): Promise<void>;
+export declare function resetPinCodeInternalStates(pinAttempsStorageName?: string, timePinLockedStorageName?: string): Promise<void>;
 export default PINCode;

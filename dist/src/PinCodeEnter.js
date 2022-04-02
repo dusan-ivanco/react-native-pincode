@@ -7,7 +7,7 @@ const async_storage_1 = require("@react-native-community/async-storage");
 const React = require("react");
 const react_native_1 = require("react-native");
 const Keychain = require("react-native-keychain");
-const react_native_touch_id_1 = require("react-native-touch-id");
+const LocalAuthentication = require("expo-local-authentication");
 class PinCodeEnter extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -50,7 +50,7 @@ class PinCodeEnter extends React.PureComponent {
                         this.props.changeInternalStatus(utils_1.PinResultStatus.failure);
                     }
                     if (this.props.onFail) {
-                        await delay_1.default(1500);
+                        await (0, delay_1.default)(1500);
                         this.props.onFail(pinAttempts);
                     }
                 }
@@ -80,7 +80,7 @@ class PinCodeEnter extends React.PureComponent {
         }
     }
     triggerTouchID() {
-        !!react_native_touch_id_1.default && react_native_touch_id_1.default.isSupported()
+        !!LocalAuthentication && LocalAuthentication.hasHardwareAsync()
             .then(() => {
             setTimeout(() => {
                 this.launchTouchID();
@@ -92,19 +92,13 @@ class PinCodeEnter extends React.PureComponent {
     }
     async launchTouchID() {
         const optionalConfigObject = {
-            imageColor: '#e00606',
-            imageErrorColor: '#ff0000',
-            sensorDescription: 'Touch sensor',
-            sensorErrorDescription: 'Failed',
-            cancelText: this.props.textCancelButtonTouchID || 'Cancel',
-            fallbackLabel: 'Show Passcode',
-            unifiedErrors: false,
-            passcodeFallback: this.props.passcodeFallback
+            cancelLabel: this.props.cancelLabel,
+            disableDeviceFallback: this.props.disableDeviceFallback,
+            fallbackLabel: this.props.fallbackLabel,
+            promptMessage: this.props.promptMessage
         };
         try {
-            await react_native_touch_id_1.default.authenticate(this.props.touchIDSentence, Object.assign({}, optionalConfigObject, {
-                title: this.props.touchIDTitle
-            })).then((success) => {
+            await LocalAuthentication.authenticateAsync(optionalConfigObject).then((success) => {
                 this.endProcess(this.props.storedPin || this.keyChainResult);
             });
         }
@@ -127,7 +121,6 @@ class PinCodeEnter extends React.PureComponent {
     }
 }
 PinCodeEnter.defaultProps = {
-    passcodeFallback: true,
     styleContainer: null
 };
 const styles = react_native_1.StyleSheet.create({

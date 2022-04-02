@@ -12,7 +12,7 @@ import {
   ViewStyle
 } from 'react-native'
 import * as Keychain from 'react-native-keychain'
-import TouchID from 'react-native-touch-id'
+import * as LocalAuthentication from 'expo-local-authentication';
 
 /**
  * Pin Code Enter PIN Page
@@ -78,7 +78,6 @@ export interface IProps {
   subtitle: string
   subtitleComponent: any
   subtitleError?: string
-  textCancelButtonTouchID?: string
   textPasswordVisibleFamily?: string
   textPasswordVisibleSize?: number
   timePinLockedAsyncStorageName: string
@@ -87,11 +86,12 @@ export interface IProps {
   titleComponent: any
   titleConfirmFailed?: string
   touchIDDisabled: boolean
-  touchIDSentence: string
-  touchIDTitle?: string
-  passcodeFallback?: boolean
   vibrationEnabled?: boolean
   delayBetweenAttempts?: number
+  cancelLabel?: string
+  disableDeviceFallback?: boolean
+  fallbackLabel?: string
+  promptMessage?: string
 }
 
 export interface IState {
@@ -103,7 +103,6 @@ class PinCodeEnter extends React.PureComponent<IProps, IState> {
   keyChainResult: string | undefined = undefined
 
   static defaultProps = {
-    passcodeFallback: true,
     styleContainer: null
   }
 
@@ -142,7 +141,7 @@ class PinCodeEnter extends React.PureComponent<IProps, IState> {
   }
 
   triggerTouchID() {
-    !!TouchID && TouchID.isSupported()
+    !!LocalAuthentication && LocalAuthentication.hasHardwareAsync()
       .then(() => {
         setTimeout(() => {
           this.launchTouchID()
@@ -207,21 +206,14 @@ class PinCodeEnter extends React.PureComponent<IProps, IState> {
 
   async launchTouchID() {
     const optionalConfigObject = {
-      imageColor: '#e00606',
-      imageErrorColor: '#ff0000',
-      sensorDescription: 'Touch sensor',
-      sensorErrorDescription: 'Failed',
-      cancelText: this.props.textCancelButtonTouchID || 'Cancel',
-      fallbackLabel: 'Show Passcode',
-      unifiedErrors: false,
-      passcodeFallback: this.props.passcodeFallback
+      cancelLabel: this.props.cancelLabel,
+      disableDeviceFallback: this.props.disableDeviceFallback,
+      fallbackLabel: this.props.fallbackLabel,
+      promptMessage: this.props.promptMessage
     }
     try {
-      await TouchID.authenticate(
-        this.props.touchIDSentence,
-        Object.assign({}, optionalConfigObject, {
-          title: this.props.touchIDTitle
-        })
+      await LocalAuthentication.authenticateAsync(
+        optionalConfigObject
       ).then((success: any) => {
         this.endProcess(this.props.storedPin || this.keyChainResult)
       })

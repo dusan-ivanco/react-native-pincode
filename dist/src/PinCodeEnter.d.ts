@@ -65,7 +65,6 @@ export interface IProps {
     subtitle: string;
     subtitleComponent: any;
     subtitleError?: string;
-    textCancelButtonTouchID?: string;
     textPasswordVisibleFamily?: string;
     textPasswordVisibleSize?: number;
     timePinLockedAsyncStorageName: string;
@@ -74,11 +73,12 @@ export interface IProps {
     titleComponent: any;
     titleConfirmFailed?: string;
     touchIDDisabled: boolean;
-    touchIDSentence: string;
-    touchIDTitle?: string;
-    passcodeFallback?: boolean;
     vibrationEnabled?: boolean;
     delayBetweenAttempts?: number;
+    cancelLabel?: string;
+    disableDeviceFallback?: boolean;
+    fallbackLabel?: string;
+    promptMessage?: string;
 }
 export interface IState {
     pinCodeStatus: PinResultStatus;
@@ -87,7 +87,6 @@ export interface IState {
 declare class PinCodeEnter extends React.PureComponent<IProps, IState> {
     keyChainResult: string | undefined;
     static defaultProps: {
-        passcodeFallback: boolean;
         styleContainer: any;
     };
     constructor(props: IProps);
@@ -96,6 +95,6 @@ declare class PinCodeEnter extends React.PureComponent<IProps, IState> {
     triggerTouchID(): void;
     endProcess: (pinCode?: string) => Promise<void>;
     launchTouchID(): Promise<void>;
-    render(): any;
+    render(): JSX.Element;
 }
 export default PinCodeEnter;

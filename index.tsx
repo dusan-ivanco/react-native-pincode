@@ -91,7 +91,6 @@ export type IProps = {
   subtitleEnter?: string
   subtitleError?: string
   textButtonLockedPage?: string
-  textCancelButtonTouchID?: string
   textDescriptionLockedPage?: string
   textSubDescriptionLockedPage?: string
   textPasswordVisibleFamily?: string
@@ -109,12 +108,13 @@ export type IProps = {
   titleEnter?: string
   titleValidationFailed?: string
   touchIDDisabled?: boolean
-  touchIDSentence?: string
-  touchIDTitle?: string
   validationRegex?: RegExp
-  passcodeFallback?: boolean
   vibrationEnabled?: boolean
-  delayBetweenAttempts?: number;
+  delayBetweenAttempts?: number
+  cancelLabel?: string
+  disableDeviceFallback?: boolean
+  fallbackLabel?: string
+  promptMessage?: string;
 }
 
 export type IState = {
@@ -127,7 +127,10 @@ const timePinLockedAsyncStorageNameDefault = "timePinLockedRNPin";
 const pinAttemptsAsyncStorageNameDefault = "pinAttemptsRNPin";
 const pinCodeKeychainNameDefault = "reactNativePinCode";
 const touchIDDisabledDefault = false;
-const touchIDTitleDefault = 'Authentication Required';
+const cancelLabelDefault = 'Cancel';
+const disableDeviceFallbackDefault = false;
+const fallbackLabelDefault = 'Use Passcode';
+const promptMessageDefault = 'Unlock your application';
 
 class PINCode extends React.PureComponent<IProps, IState> {
   static defaultProps: Partial<IProps> = {
@@ -258,7 +261,6 @@ class PINCode extends React.PureComponent<IProps, IState> {
         {status === PinStatus.enter &&
           <PinCodeEnter
             alphabetCharsVisible={this.props.alphabetCharsVisible}
-            passcodeFallback={this.props.passcodeFallback}
             buttonDeleteComponent={this.props.buttonDeleteComponent}
             buttonDeleteText={this.props.buttonDeleteText}
             buttonNumberComponent={this.props.buttonNumberComponent}
@@ -317,7 +319,6 @@ class PINCode extends React.PureComponent<IProps, IState> {
             subtitle={this.props.subtitleEnter || ""}
             subtitleComponent={this.props.subtitleComponent}
             subtitleError={this.props.subtitleError}
-            textCancelButtonTouchID={this.props.textCancelButtonTouchID}
             textPasswordVisibleFamily={this.props.textPasswordVisibleFamily}
             textPasswordVisibleSize={this.props.textPasswordVisibleSize}
             title={this.props.titleEnter || "Enter your PIN Code"}
@@ -326,10 +327,12 @@ class PINCode extends React.PureComponent<IProps, IState> {
             titleConfirmFailed={this.props.titleConfirmFailed}
             timePinLockedAsyncStorageName={this.props.timePinLockedAsyncStorageName || timePinLockedAsyncStorageNameDefault}
             touchIDDisabled={this.props.touchIDDisabled || touchIDDisabledDefault}
-            touchIDSentence={this.props.touchIDSentence || "To unlock your application"}
-            touchIDTitle={this.props.touchIDTitle || touchIDTitleDefault}
             vibrationEnabled={this.props.vibrationEnabled}
             delayBetweenAttempts={this.props.delayBetweenAttempts}
+            cancelLabel={this.props.cancelLabel || cancelLabelDefault}
+            disableDeviceFallback={this.props.disableDeviceFallback || disableDeviceFallbackDefault}
+            fallbackLabel={this.props.fallbackLabel || fallbackLabelDefault}
+            promptMessage={this.props.promptMessage || promptMessageDefault}
           />}
         {(pinStatus === PinResultStatus.locked ||
           this.state.internalPinStatus === PinResultStatus.locked ||
