@@ -24,7 +24,7 @@ export interface IProps {
   buttonDeleteComponent: any
   buttonDeleteText?: string
   buttonNumberComponent: any
-  callbackErrorTouchId?: (e: Error) => void
+  callbackErrorTouchId?: (e: string) => void
   changeInternalStatus: (status: PinResultStatus) => void
   colorCircleButtons?: string
   colorPassword?: string
@@ -143,14 +143,11 @@ class PinCodeEnter extends React.PureComponent<IProps, IState> {
 
   triggerTouchID() {
     !!LocalAuthentication && LocalAuthentication.hasHardwareAsync()
-      .then(() => {
-        setTimeout(() => {
-          this.launchTouchID()
-        })
-      })
-      .catch((error: any) => {
-        console.warn('TouchID error', error)
-      })
+      .then(result => {
+        result && setTimeout(() => {
+          this.launchTouchID();
+        });
+      });
   }
 
   endProcess = async (pinCode?: string) => {
@@ -206,20 +203,27 @@ class PinCodeEnter extends React.PureComponent<IProps, IState> {
   }
 
   async launchTouchID() {
-    try {
-      await LocalAuthentication.authenticateAsync({
-        ...(_.isString(this.props.cancelLabel) && {cancelLabel: this.props.cancelLabel}),
-        ...(_.isBoolean(this.props.disableDeviceFallback) && {disableDeviceFallback: this.props.disableDeviceFallback}),
-        ...(_.isString(this.props.fallbackLabel) && {fallbackLabel: this.props.fallbackLabel}),
-        ...(_.isString(this.props.promptMessage) && {promptMessage: this.props.promptMessage})
-      }).then((success: any) => {
-        this.endProcess(this.props.storedPin || this.keyChainResult)
-      })
-    } catch (e) {
-      if (!!this.props.callbackErrorTouchId) {
-        this.props.callbackErrorTouchId(e)
-      } else {
-        console.log('TouchID error', e)
+    const result = await LocalAuthentication.authenticateAsync({
+      ...(_.isString(this.props.cancelLabel) && {cancelLabel: this.props.cancelLabel}),
+      ...(_.isBoolean(this.props.disableDeviceFallback) && {disableDeviceFallback: this.props.disableDeviceFallback}),
+      ...(_.isString(this.props.fallbackLabel) && {fallbackLabel: this.props.fallbackLabel}),
+      ...(_.isString(this.props.promptMessage) && {promptMessage: this.props.promptMessage})
+    });
+
+    switch(result.success) {
+      case true: {
+        this.endProcess(this.props.storedPin || this.keyChainResult);
+
+        break;
+      }
+      case false: {
+        if (!!this.props.callbackErrorTouchId) {
+          this.props.callbackErrorTouchId(result.error);
+        } else {
+          console.log('TouchID error: ', result.error);
+        }
+
+        break;
       }
     }
   }

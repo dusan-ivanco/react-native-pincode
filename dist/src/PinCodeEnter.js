@@ -82,27 +82,27 @@ class PinCodeEnter extends React.PureComponent {
     }
     triggerTouchID() {
         !!LocalAuthentication && LocalAuthentication.hasHardwareAsync()
-            .then(() => {
-            setTimeout(() => {
+            .then(result => {
+            result && setTimeout(() => {
                 this.launchTouchID();
             });
-        })
-            .catch((error) => {
-            console.warn('TouchID error', error);
         });
     }
     async launchTouchID() {
-        try {
-            await LocalAuthentication.authenticateAsync(Object.assign(Object.assign(Object.assign(Object.assign({}, (_.isString(this.props.cancelLabel) && { cancelLabel: this.props.cancelLabel })), (_.isBoolean(this.props.disableDeviceFallback) && { disableDeviceFallback: this.props.disableDeviceFallback })), (_.isString(this.props.fallbackLabel) && { fallbackLabel: this.props.fallbackLabel })), (_.isString(this.props.promptMessage) && { promptMessage: this.props.promptMessage }))).then((success) => {
+        const result = await LocalAuthentication.authenticateAsync(Object.assign(Object.assign(Object.assign(Object.assign({}, (_.isString(this.props.cancelLabel) && { cancelLabel: this.props.cancelLabel })), (_.isBoolean(this.props.disableDeviceFallback) && { disableDeviceFallback: this.props.disableDeviceFallback })), (_.isString(this.props.fallbackLabel) && { fallbackLabel: this.props.fallbackLabel })), (_.isString(this.props.promptMessage) && { promptMessage: this.props.promptMessage })));
+        switch (result.success) {
+            case true: {
                 this.endProcess(this.props.storedPin || this.keyChainResult);
-            });
-        }
-        catch (e) {
-            if (!!this.props.callbackErrorTouchId) {
-                this.props.callbackErrorTouchId(e);
+                break;
             }
-            else {
-                console.log('TouchID error', e);
+            case false: {
+                if (!!this.props.callbackErrorTouchId) {
+                    this.props.callbackErrorTouchId(result.error);
+                }
+                else {
+                    console.log('TouchID error: ', result.error);
+                }
+                break;
             }
         }
     }

@@ -10,7 +10,7 @@ export interface IProps {
     buttonDeleteComponent: any;
     buttonDeleteText?: string;
     buttonNumberComponent: any;
-    callbackErrorTouchId?: (e: Error) => void;
+    callbackErrorTouchId?: (e: string) => void;
     changeInternalStatus: (status: PinResultStatus) => void;
     colorCircleButtons?: string;
     colorPassword?: string;
