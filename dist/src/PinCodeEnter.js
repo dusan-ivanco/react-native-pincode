@@ -1,14 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const delay_1 = require("./delay");
 const PinCode_1 = require("./PinCode");
+const delay_1 = require("./delay");
 const utils_1 = require("./utils");
-const async_storage_1 = require("@react-native-async-storage/async-storage");
 const _ = require("lodash");
 const React = require("react");
 const react_native_1 = require("react-native");
 const Keychain = require("react-native-keychain");
 const LocalAuthentication = require("expo-local-authentication");
+const async_storage_1 = require("@react-native-async-storage/async-storage");
 class PinCodeEnter extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -34,8 +34,9 @@ class PinCodeEnter extends React.PureComponent {
                         this.props.timePinLockedAsyncStorageName
                     ]);
                     this.props.changeInternalStatus(utils_1.PinResultStatus.success);
-                    if (!!this.props.finishProcess)
+                    if (!!this.props.finishProcess) {
                         this.props.finishProcess(pinCode);
+                    }
                 }
                 else {
                     pinAttempts++;
@@ -64,7 +65,7 @@ class PinCodeEnter extends React.PureComponent {
             Keychain.getInternetCredentials(this.props.pinCodeKeychainName, utils_1.noBiometricsConfig).then(result => {
                 this.keyChainResult = result && result.password || undefined;
             }).catch(error => {
-                console.log('PinCodeEnter: ', error);
+                console.log('PinCodeEnter:', error);
             });
         }
     }
@@ -81,8 +82,7 @@ class PinCodeEnter extends React.PureComponent {
         }
     }
     triggerTouchID() {
-        !!LocalAuthentication && LocalAuthentication.hasHardwareAsync()
-            .then(result => {
+        !!LocalAuthentication && LocalAuthentication.hasHardwareAsync().then(result => {
             result && setTimeout(() => {
                 this.launchTouchID();
             });

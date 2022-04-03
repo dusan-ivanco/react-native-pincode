@@ -4,12 +4,12 @@ const colors_1 = require("./design/colors");
 const grid_1 = require("./design/grid");
 const delay_1 = require("./delay");
 const utils_1 = require("./utils");
-const async_storage_1 = require("@react-native-async-storage/async-storage");
 const d3_ease_1 = require("d3-ease");
 const React = require("react");
-const Animate_1 = require("react-move/Animate");
 const react_native_1 = require("react-native");
+const Animate_1 = require("react-move/Animate");
 const MaterialIcons_1 = require("react-native-vector-icons/MaterialIcons");
+const async_storage_1 = require("@react-native-async-storage/async-storage");
 class ApplicationLocked extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -19,7 +19,7 @@ class ApplicationLocked extends React.PureComponent {
                         this.props.onClickButton();
                     }
                     else {
-                        throw "Quit application";
+                        throw 'Quit application';
                     }
                 }, style: [styles.button, this.props.styleButton], accessible: true, accessibilityLabel: this.props.textButton },
                 React.createElement(react_native_1.Text, { style: [
@@ -35,10 +35,10 @@ class ApplicationLocked extends React.PureComponent {
                 React.createElement(react_native_1.Text, { style: [
                         styles.textTimer,
                         this.props.styleTextTimer
-                    ] }, `${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10 ? "0" + seconds : seconds}`)));
+                    ] }, `${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`)));
         };
         this.renderTitle = () => {
-            return (React.createElement(react_native_1.Text, { style: [styles.title, this.props.styleTitle] }, this.props.textTitle || "Maximum attempts reached"));
+            return (React.createElement(react_native_1.Text, { style: [styles.title, this.props.styleTitle] }, this.props.textTitle || 'Maximum attempts reached'));
         };
         this.renderIcon = () => {
             return (React.createElement(react_native_1.View, { style: [styles.viewIcon, this.props.styleViewIcon] }, this.props.lockedIconComponent ?
@@ -79,7 +79,7 @@ class ApplicationLocked extends React.PureComponent {
                             this.props.styleText
                         ] }, this.props.textSubDescription
                         ? this.props.textSubDescription
-                        : "Come back later and try again.")))),
+                        : 'Come back later and try again.')))),
                 React.createElement(Animate_1.default, { show: true, start: {
                         opacity: 0
                     }, enter: {
@@ -93,9 +93,7 @@ class ApplicationLocked extends React.PureComponent {
                         ? this.props.buttonComponent()
                         : this.renderButton()))))));
         };
-        this.state = {
-            timeDiff: 0
-        };
+        this.state = { timeDiff: 0 };
         this.isUnmounted = false;
         this.timeLocked = 0;
         this.timer = this.timer.bind(this);
@@ -104,7 +102,7 @@ class ApplicationLocked extends React.PureComponent {
     }
     componentDidMount() {
         async_storage_1.default.getItem(this.props.timePinLockedAsyncStorageName).then(val => {
-            this.timeLocked = new Date(val ? val : "").getTime() + this.props.timeToLock;
+            this.timeLocked = new Date(val ? val : '').getTime() + this.props.timeToLock;
             this.timer();
         });
     }
@@ -140,42 +138,42 @@ ApplicationLocked.defaultProps = {
     styleTextTimer: null,
     styleTitle: null,
     styleViewIcon: null,
-    nameIcon: "lock",
+    nameIcon: 'lock',
     sizeIcon: 24,
     colorIcon: colors_1.colors.white,
     styleViewTextLock: null,
     styleText: null,
     styleViewButton: null,
-    styleMainContainer: null,
+    styleMainContainer: null
 };
 const styles = react_native_1.StyleSheet.create({
     container: {
-        position: "absolute",
+        position: 'absolute',
         top: 0,
         backgroundColor: colors_1.colors.background,
         flexBasis: 0,
         left: 0,
-        height: "100%",
-        width: "100%",
-        alignItems: "center",
+        height: '100%',
+        width: '100%',
+        alignItems: 'center',
         flex: 1,
-        justifyContent: "center"
+        justifyContent: 'center'
     },
     text: {
         fontSize: grid_1.grid.unit,
         color: colors_1.colors.base,
         lineHeight: grid_1.grid.unit * grid_1.grid.lineHeight,
-        textAlign: "center"
+        textAlign: 'center'
     },
     viewTextLock: {
-        justifyContent: "center",
-        alignItems: "center",
+        justifyContent: 'center',
+        alignItems: 'center',
         paddingLeft: grid_1.grid.unit * 3,
         paddingRight: grid_1.grid.unit * 3,
         flex: 3
     },
     textTimer: {
-        fontFamily: react_native_1.Platform.OS === "ios" ? "Courier" : "monospace",
+        fontFamily: react_native_1.Platform.OS === 'ios' ? 'Courier' : 'monospace',
         fontSize: 20,
         color: colors_1.colors.base
     },
@@ -183,18 +181,18 @@ const styles = react_native_1.StyleSheet.create({
         fontSize: grid_1.grid.navIcon,
         color: colors_1.colors.base,
         opacity: grid_1.grid.mediumOpacity,
-        fontWeight: "200",
+        fontWeight: '200',
         marginBottom: grid_1.grid.unit * 4
     },
     viewIcon: {
         width: grid_1.grid.unit * 4,
-        justifyContent: "center",
-        alignItems: "center",
+        justifyContent: 'center',
+        alignItems: 'center',
         height: grid_1.grid.unit * 4,
         borderRadius: grid_1.grid.unit * 2,
         opacity: grid_1.grid.mediumOpacity,
         backgroundColor: colors_1.colors.alert,
-        overflow: "hidden",
+        overflow: 'hidden',
         marginBottom: grid_1.grid.unit * 4
     },
     viewTimer: {
@@ -204,13 +202,13 @@ const styles = react_native_1.StyleSheet.create({
         paddingTop: 10,
         borderRadius: 4,
         borderWidth: 2,
-        borderColor: "rgb(230, 231, 233)",
+        borderColor: 'rgb(230, 231, 233)',
         marginBottom: grid_1.grid.unit * 4
     },
     viewCloseButton: {
-        alignItems: "center",
+        alignItems: 'center',
         opacity: grid_1.grid.mediumOpacity,
-        justifyContent: "center",
+        justifyContent: 'center',
         marginTop: grid_1.grid.unit * 2
     },
     button: {
@@ -223,7 +221,7 @@ const styles = react_native_1.StyleSheet.create({
     },
     closeButtonText: {
         color: colors_1.colors.white,
-        fontWeight: "bold",
+        fontWeight: 'bold',
         fontSize: 14
     }
 });

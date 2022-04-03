@@ -1,6 +1,6 @@
-import { PinResultStatus } from "./src/utils";
-import * as React from "react";
-import { StyleProp, ViewStyle, TextStyle } from "react-native";
+import { PinResultStatus } from './src/utils';
+import * as React from 'react';
+import { StyleProp, TextStyle, ViewStyle } from 'react-native';
 export declare type IProps = {
     alphabetCharsVisible?: boolean;
     bottomLeftComponent?: any;
@@ -33,7 +33,7 @@ export declare type IProps = {
     pinCodeKeychainName?: string;
     pinCodeVisible?: boolean;
     pinStatus?: PinResultStatus;
-    status: "choose" | "enter" | "locked";
+    status: 'choose' | 'enter' | 'locked';
     storedPin?: string;
     storePin?: any;
     styleAlphabet?: StyleProp<TextStyle>;

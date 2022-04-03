@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.noBiometricsConfig = exports.resetInternalStates = exports.deletePinCode = exports.hasPinCode = exports.PinResultStatus = void 0;
 const react_native_1 = require("react-native");
-const async_storage_1 = require("@react-native-async-storage/async-storage");
 const Keychain = require("react-native-keychain");
+const async_storage_1 = require("@react-native-async-storage/async-storage");
 var PinResultStatus;
 (function (PinResultStatus) {
     PinResultStatus["initial"] = "initial";
@@ -26,8 +26,6 @@ const resetInternalStates = async (asyncStorageKeys) => {
 };
 exports.resetInternalStates = resetInternalStates;
 exports.noBiometricsConfig = react_native_1.Platform.select({
-    android: {
-        accessControl: Keychain.ACCESS_CONTROL.APPLICATION_PASSWORD,
-    },
+    android: { accessControl: Keychain.ACCESS_CONTROL.APPLICATION_PASSWORD },
     ios: {}
 });

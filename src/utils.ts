@@ -1,6 +1,14 @@
-import { Platform } from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import * as Keychain from 'react-native-keychain'
+import {
+  Platform
+} from 'react-native';
+
+import
+  * as Keychain
+  from 'react-native-keychain';
+
+import
+  AsyncStorage
+  from '@react-native-async-storage/async-storage';
 
 export enum PinResultStatus {
   initial = 'initial',
@@ -9,23 +17,21 @@ export enum PinResultStatus {
   locked = 'locked'
 }
 
-export const hasPinCode = async (serviceName: string) => {
+export const hasPinCode = async(serviceName:string) => {
   return await Keychain.getInternetCredentials(serviceName).then(res => {
-    return !!res && !!res.password
-  })
-}
+    return !!res && !!res.password;
+  });
+};
 
-export const deletePinCode = async (serviceName: string) => {
-  return await Keychain.resetInternetCredentials(serviceName)
-}
+export const deletePinCode = async(serviceName:string) => {
+  return await Keychain.resetInternetCredentials(serviceName);
+};
 
-export const resetInternalStates = async (asyncStorageKeys: string[]) => {
-  return await AsyncStorage.multiRemove(asyncStorageKeys)
-}
+export const resetInternalStates = async(asyncStorageKeys:string[]) => {
+  return await AsyncStorage.multiRemove(asyncStorageKeys);
+};
 
 export const noBiometricsConfig = Platform.select({
-    android: {
-        accessControl: Keychain.ACCESS_CONTROL.APPLICATION_PASSWORD,
-    },
-    ios: {}
-})
+  android:{accessControl:Keychain.ACCESS_CONTROL.APPLICATION_PASSWORD},
+  ios:{}
+});

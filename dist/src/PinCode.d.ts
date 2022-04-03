@@ -1,8 +1,5 @@
-import * as React from "react";
-import { StyleProp, TextStyle, ViewStyle } from "react-native";
-/**
- * Pin Code Component
- */
+import * as React from 'react';
+import { StyleProp, TextStyle, ViewStyle } from 'react-native';
 export interface IProps {
     alphabetCharsVisible?: boolean;
     buttonDeleteComponent?: any;
@@ -22,7 +19,7 @@ export interface IProps {
     numbersButtonOverlayColor: string;
     passwordComponent?: any;
     passwordLength: number;
-    pinCodeStatus?: "initial" | "success" | "failure" | "locked";
+    pinCodeStatus?: 'initial' | 'success' | 'failure' | 'locked';
     pinCodeVisible?: boolean;
     previousPin?: string;
     sentenceTitle: string;
