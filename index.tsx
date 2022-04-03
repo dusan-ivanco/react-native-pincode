@@ -170,7 +170,7 @@ class PINCode extends React.PureComponent<IProps, IState> {
     AsyncStorage.getItem(this.props.timePinLockedAsyncStorageName || timePinLockedAsyncStorageNameDefault).then((val) => {
       this.setState({pinLocked:!!val});
     }).catch(error => {
-      console.log('PINCode: ', error);
+      console.log('PinCode Error:', error);
     });
   }
 

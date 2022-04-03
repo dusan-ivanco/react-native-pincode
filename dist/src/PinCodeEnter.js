@@ -65,7 +65,7 @@ class PinCodeEnter extends React.PureComponent {
             Keychain.getInternetCredentials(this.props.pinCodeKeychainName, utils_1.noBiometricsConfig).then(result => {
                 this.keyChainResult = result && result.password || undefined;
             }).catch(error => {
-                console.log('PinCodeEnter:', error);
+                console.log('PinCode Error:', error);
             });
         }
     }
@@ -100,7 +100,7 @@ class PinCodeEnter extends React.PureComponent {
                     this.props.callbackErrorTouchId(result.error);
                 }
                 else {
-                    console.log('TouchID error: ', result.error);
+                    console.log('TouchID Error:', result.error);
                 }
                 break;
             }

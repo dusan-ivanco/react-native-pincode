@@ -140,7 +140,7 @@ class PinCodeEnter extends React.PureComponent<IProps, IState> {
       ).then(result => {
         this.keyChainResult = result && result.password || undefined;
       }).catch(error => {
-        console.log('PinCodeEnter:', error);
+        console.log('PinCode Error:', error);
       });
     }
   }
@@ -250,7 +250,7 @@ class PinCodeEnter extends React.PureComponent<IProps, IState> {
         if(!!this.props.callbackErrorTouchId) {
           this.props.callbackErrorTouchId(result.error);
         } else {
-          console.log('TouchID error: ', result.error);
+          console.log('TouchID Error:', result.error);
         }
 
         break;
