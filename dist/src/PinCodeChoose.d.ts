@@ -64,7 +64,7 @@ export interface IProps {
     vibrationEnabled?: boolean;
     delayBetweenAttempts?: number;
 }
-export declare type IState = {
+export type IState = {
     status: PinStatus;
     pinCode: string;
 };
@@ -74,6 +74,6 @@ declare class PinCodeChoose extends React.PureComponent<IProps, IState> {
     endProcessCreation: (pinCode: string, isErrorValidation?: boolean) => void;
     endProcessConfirm: (pinCode: string) => Promise<void>;
     cancelConfirm: () => void;
-    render(): JSX.Element;
+    render(): React.JSX.Element;
 }
 export default PinCodeChoose;

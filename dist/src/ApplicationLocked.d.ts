@@ -1,6 +1,6 @@
 import { PinResultStatus } from './utils';
 import * as React from 'react';
-export declare type IProps = {
+export type IProps = {
     buttonComponent?: any;
     changeStatus: (status: PinResultStatus) => void;
     colorIcon?: string;
@@ -29,7 +29,7 @@ export declare type IProps = {
     timerComponent?: any;
     titleComponent?: any;
 };
-export declare type IState = {
+export type IState = {
     timeDiff: number;
 };
 declare class ApplicationLocked extends React.PureComponent<IProps, IState> {
@@ -40,11 +40,11 @@ declare class ApplicationLocked extends React.PureComponent<IProps, IState> {
     componentDidMount(): void;
     timer(): Promise<void>;
     componentWillUnmount(): void;
-    renderButton: () => JSX.Element;
-    renderTimer: (minutes: number, seconds: number) => JSX.Element;
-    renderTitle: () => JSX.Element;
-    renderIcon: () => JSX.Element;
-    renderErrorLocked: () => JSX.Element;
-    render(): JSX.Element;
+    renderButton: () => React.JSX.Element;
+    renderTimer: (minutes: number, seconds: number) => React.JSX.Element;
+    renderTitle: () => React.JSX.Element;
+    renderIcon: () => React.JSX.Element;
+    renderErrorLocked: () => React.JSX.Element;
+    render(): React.JSX.Element;
 }
 export default ApplicationLocked;

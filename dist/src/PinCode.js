@@ -16,7 +16,7 @@ var PinStatus;
     PinStatus["choose"] = "choose";
     PinStatus["confirm"] = "confirm";
     PinStatus["enter"] = "enter";
-})(PinStatus = exports.PinStatus || (exports.PinStatus = {}));
+})(PinStatus || (exports.PinStatus = PinStatus = {}));
 class PinCode extends React.PureComponent {
     constructor(props) {
         super(props);

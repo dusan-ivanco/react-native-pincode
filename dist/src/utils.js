@@ -10,7 +10,7 @@ var PinResultStatus;
     PinResultStatus["success"] = "success";
     PinResultStatus["failure"] = "failure";
     PinResultStatus["locked"] = "locked";
-})(PinResultStatus = exports.PinResultStatus || (exports.PinResultStatus = {}));
+})(PinResultStatus || (exports.PinResultStatus = PinResultStatus = {}));
 const hasPinCode = async (serviceName) => {
     return await Keychain.getInternetCredentials(serviceName).then(res => {
         return !!res && !!res.password;
