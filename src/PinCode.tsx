@@ -46,7 +46,7 @@ import {
 
 import
   Icon
-  from 'react-native-vector-icons/MaterialIcons';
+  from '@react-native-vector-icons/material-design-icons';
 
 export interface IProps {
   alphabetCharsVisible?:boolean;

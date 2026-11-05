@@ -1,6 +1,6 @@
 {
   "name": "@dusan-ivanco/react-native-pincode",
-  "version": "1.22.12",
+  "version": "1.22.13",
   "description": "React native PIN code component",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -17,7 +17,7 @@
     "url": "https://github.com/dusan-ivanco/react-native-pincode/issues"
   },
   "homepage": "https://github.com/dusan-ivanco/react-native-pincode#readme",
-   "devDependencies": {
+  "devDependencies": {
     "@types/react": "^19.0.12"
   },
   "dependencies": {
@@ -27,12 +27,12 @@
   },
   "peerDependencies": {
     "@react-native-async-storage/async-storage": "*",
+    "@react-native-vector-icons/material-design-icons": "*",
     "expo": "*",
     "expo-local-authentication": "*",
     "lodash": "*",
     "react": "*",
     "react-native": "*",
-    "react-native-keychain": "*",
-    "react-native-vector-icons": "*"
+    "react-native-keychain": "*"
   }
 }

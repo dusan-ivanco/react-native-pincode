@@ -8,7 +8,7 @@ const d3_ease_1 = require("d3-ease");
 const React = require("react");
 const react_native_1 = require("react-native");
 const Animate_1 = require("react-move/Animate");
-const MaterialIcons_1 = require("react-native-vector-icons/MaterialIcons");
+const material_design_icons_1 = require("@react-native-vector-icons/material-design-icons");
 const async_storage_1 = require("@react-native-async-storage/async-storage");
 class ApplicationLocked extends React.PureComponent {
     constructor(props) {
@@ -43,7 +43,7 @@ class ApplicationLocked extends React.PureComponent {
         this.renderIcon = () => {
             return (React.createElement(react_native_1.View, { style: [styles.viewIcon, this.props.styleViewIcon] }, this.props.lockedIconComponent ?
                 this.props.lockedIconComponent :
-                React.createElement(MaterialIcons_1.default, { name: this.props.nameIcon, size: this.props.sizeIcon, color: this.props.colorIcon })));
+                React.createElement(material_design_icons_1.default, { name: this.props.nameIcon, size: this.props.sizeIcon, color: this.props.colorIcon })));
         };
         this.renderErrorLocked = () => {
             const minutes = Math.floor(this.state.timeDiff / 1000 / 60);

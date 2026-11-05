@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
+## [1.22.13] - 2026-11-05
+### Changed
+- Replaced deprecated `react-native-vector-icons` with `@react-native-vector-icons/material-design-icons` (MaterialCommunityIcons) (React Native 0.88 / Expo SDK 58)
+
+
 ## [1.22.6] - 2021-03-12
 ### Merged
 - Merged `Support external pin validation` PR [PR 170](https://github.com/jarden-digital/react-native-pincode/pull/170) from [leo-maidea](https://github.com/leo-maidea)
